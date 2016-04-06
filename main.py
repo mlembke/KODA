@@ -1,19 +1,15 @@
 import numpy as np
 
-import HuffmanCodec
+import HuffmanCodec.HuffmanCoder as Coder
 import ImageGenerator
-import PredictiveCodec
 
 
 def main():
-    image = ImageGenerator.generate_uniform('out.bmp')
-    data = PredictiveCodec.encode_predictive(image, 1)
-    # data = np.array(image).flatten()
-    # print(data)
-    code_book = HuffmanCodec.generate_huffman_code_book(data)
-    code = HuffmanCodec.encode(data, code_book)
-    with open('out.bin', 'wb') as f:
-        f.write(code)
+    image = ImageGenerator.generate_gaussian()
+    data = np.array(image).flatten()
+    code = Coder.encode_alt(data)
+    print(code.code_book)
+    print(code.encoded_data)
 
 
 if __name__ == '__main__':

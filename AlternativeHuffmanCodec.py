@@ -24,6 +24,11 @@ def encode(data, code_book):
                          ''.join(map(lambda x: code_book[x], data))))])
 
 
+def decode(code, codebook):
+    pass
+
+
+
 def generate_huffman_code_book(data):
     """
     Generates code book using Huffman coding
@@ -42,7 +47,3 @@ def generate_huffman_code_book(data):
             pair[1] = '1' + pair[1]
         heappush(heap, [low[0] + high[0]] + low[1:] + high[1:])
     return dict(sorted(heappop(heap)[1:], key=lambda p: (len(p[-1]), p)))
-
-
-def decode(code, codebook):
-    pass
