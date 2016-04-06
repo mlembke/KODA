@@ -38,11 +38,11 @@ def generate_uniform(file_name='', image_width=512, image_height=512):
 
 
 def __self_test():
-    unifrom = generate_uniform('uniform_test.png')
-    gaussian = generate_gaussian('gaussian_test.png')
-    laplace = generate_laplace('laplace_test.png')
+    uniform = generate_uniform()
+    gaussian = generate_gaussian()
+    laplace = generate_laplace()
     plt.subplot(1, 3, 1)
-    plt.plot(unifrom.histogram(), color='blue', linewidth=2.0)
+    plt.plot(uniform.histogram(), color='blue', linewidth=2.0)
     plt.title('Uniform')
     plt.subplot(1, 3, 2)
     plt.plot(gaussian.histogram(), color='red', linewidth=2.0)
@@ -52,6 +52,7 @@ def __self_test():
     plt.title('Laplace')
     plt.tight_layout()
     plt.show()
+
 
 if __name__ == '__main__':
     __self_test()
