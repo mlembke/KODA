@@ -7,6 +7,7 @@ from PIL import Image
 def encode_predictive(image, opt):
     width = image.size[0]
     height = image.size[1]
+    image = image.convert('L')
     pix = np.array(image, dtype='int64')
     pix_diff = np.copy(pix)
     for j in range(0, height):
@@ -18,6 +19,7 @@ def encode_predictive(image, opt):
             if (opt == 2) and (i > 0):
                 pix_diff[i, j] = pix[i, j] - pix[i - 1, j]
             # medianowe
+            # michał: ta operacja (np.median) jest bardzo kosztowna obliczeniowo
             if (opt == 3) and (i > 0) and (j > 0):
                 pix_diff[i, j] = np.median([(pix[i, j] - pix[i - 1, j]), (pix[i, j] - pix[i, j - 1]),
                                             (pix[i, j] - pix[i - 1, j - 1])])
