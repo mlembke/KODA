@@ -11,15 +11,22 @@ import PredictiveCodec
 
 path = "data/"
 
-# TODO: Sprawdzic dla jakis malych tablic, czy dobrze to liczy.
 def entropy(data):
     # Wyliczenie entropii. Przyjmuje tablice.
     freq_data = collections.Counter(data)
     probs = [float(x) / len(data) for x in freq_data.values()]
     return -1 * sum(a * b for a,b in zip(probs,[math.log2(x) for x in probs]))
 
-def word_length(data):
-    # srednia dlugosc slowa kodowego
+def word_length(data,code):
+    # Srednia dlugosc slowa kodowego.
+    codes = code.code_book;
+    freq_data = collections.Counter(data)
+    freq_data = collections.OrderedDict(sorted(freq_data.items()))
+    # tablica prawdopobienstw jest dzieki temu posortowana
+    probs = [float(x) / len(data) for x in freq_data.values()]
+    codes = [len(x) for x in codes.values()] # dlugosc slowa bitowego
+    return sum(np.multiply(probs,codes))
+
 
 def read_images():
     imgs = []
@@ -59,14 +66,25 @@ def main():
     # TODO
     #plt.show()
 
+    '''
+    # Ksiazka przelaskowskiego (str. 81) entropia = 2.176
+    test = np.array([1,1,1,1,1,1,
+        2,2,2,2,2,2,
+        2,2,2,2,2,2,
+        3,3,3,3,
+        4,4,4,4,4,
+        5,5,5,5])
+    print("Test: " + str(entropy(test))) # = 2.1755200043411453
+    tcode = Coder.encode(test)
+    print("Test2: " + str(word_length(test,tcode))) # = 2.22580645161
+    '''
+
     print("Entropia dla " + names[idx])
     print("danych wejsciowych: " + str(entropy(data[0])))
     print("danych roznicowych (gorny sasiad): " + str(entropy(data[1])))
     print("danych roznicowych (lewy sasiad): " + str(entropy(data[2])))
-
-    code_data = Coder.encode(data)
-
-    # TODO: Srednia dlugosc bitowa kodu wyjsciowego
+    code = Coder.encode(data[0])
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[0],code)))
 
 
     '''
