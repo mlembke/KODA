@@ -1,0 +1,110 @@
+Processing: lena.png
+lena.png
+Entropia danych wejsciowych: 7.750338980525236
+Srednia dlugosc slowa kodowego: 7.78056081136
+Entropia danych roznicowych (gorny sasiad): 5.073534909222871
+Srednia dlugosc slowa kodowego: 17.340587616
+Entropia danych roznicowych (lewy sasiad): 4.691554604486688
+Srednia dlugosc slowa kodowego: 16.1492347717
+Entropia danych roznicowych (mediana): 4.950928594303105
+Srednia dlugosc slowa kodowego: 14.6950302124
+Processing: peppers.png
+peppers.png
+Entropia danych wejsciowych: 7.669825514176319
+Srednia dlugosc slowa kodowego: 7.69434992472
+Entropia danych roznicowych (gorny sasiad): 5.088881210445702
+Srednia dlugosc slowa kodowego: 16.8078575134
+Entropia danych roznicowych (lewy sasiad): 5.022139012998605
+Srednia dlugosc slowa kodowego: 15.5537567139
+Entropia danych roznicowych (mediana): 4.96371837046979
+Srednia dlugosc slowa kodowego: 15.5812339783
+Processing: uniform.png
+uniform.png
+Entropia danych wejsciowych: 7.999257802843603
+Srednia dlugosc slowa kodowego: 8.0
+Entropia danych roznicowych (gorny sasiad): 8.719757966486334
+Srednia dlugosc slowa kodowego: 10.2177581787
+Entropia danych roznicowych (lewy sasiad): 8.720831003010337
+Srednia dlugosc slowa kodowego: 10.2100715637
+Entropia danych roznicowych (mediana): 8.574064139178535
+Srednia dlugosc slowa kodowego: 11.1467475891
+Processing: laplace.png
+laplace.png
+Entropia danych wejsciowych: 5.825160176568745
+Srednia dlugosc slowa kodowego: 5.85804367065
+Entropia danych roznicowych (gorny sasiad): 6.411646993664167
+Srednia dlugosc slowa kodowego: 15.3622703552
+Entropia danych roznicowych (lewy sasiad): 6.411749408077623
+Srednia dlugosc slowa kodowego: 15.3975944519
+Entropia danych roznicowych (mediana): 6.120633240743119
+Srednia dlugosc slowa kodowego: 13.9813957214
+Processing: gaussian.png
+gaussian.png
+Entropia danych wejsciowych: 6.875563596735129
+Srednia dlugosc slowa kodowego: 6.9087638855
+Entropia danych roznicowych (gorny sasiad): 7.386931754316359
+Srednia dlugosc slowa kodowego: 15.0628662109
+Entropia danych roznicowych (lewy sasiad): 7.38532681244117
+Srednia dlugosc slowa kodowego: 14.7890586853
+Entropia danych roznicowych (mediana): 7.1726809634101825
+Srednia dlugosc slowa kodowego: 14.3474578857
+Processing: monarch.png
+monarch.png
+Entropia danych wejsciowych: 7.495699025596916
+Srednia dlugosc slowa kodowego: 7.51891157362
+Entropia danych roznicowych (gorny sasiad): 4.486880399783868
+Srednia dlugosc slowa kodowego: 17.3029200236
+Entropia danych roznicowych (lewy sasiad): 4.51148272241044
+Srednia dlugosc slowa kodowego: 17.8531494141
+Entropia danych roznicowych (mediana): 4.492782230839616
+Srednia dlugosc slowa kodowego: 15.974744161
+Processing: fruits.png
+fruits.png
+Entropia danych wejsciowych: 7.6318802878521135
+Srednia dlugosc slowa kodowego: 7.66538365682
+Entropia danych roznicowych (gorny sasiad): 4.613292106223829
+Srednia dlugosc slowa kodowego: 15.9112968445
+Entropia danych roznicowych (lewy sasiad): 4.6613385775932645
+Srednia dlugosc slowa kodowego: 15.3145599365
+Entropia danych roznicowych (mediana): 4.636317636787717
+Srednia dlugosc slowa kodowego: 14.8139038086
+Processing: girl.png
+girl.png
+Entropia danych wejsciowych: 7.512046914904442
+Srednia dlugosc slowa kodowego: 7.54418097602
+Entropia danych roznicowych (gorny sasiad): 4.682053728978124
+Srednia dlugosc slowa kodowego: 16.2557957967
+Entropia danych roznicowych (lewy sasiad): 4.472217246255004
+Srednia dlugosc slowa kodowego: 17.7335993449
+Entropia danych roznicowych (mediana): 4.616763181246393
+Srednia dlugosc slowa kodowego: 16.3897450765
+Processing: arctichare.png
+arctichare.png
+Entropia danych wejsciowych: 5.266785062920447
+Srednia dlugosc slowa kodowego: 5.31654741863
+Entropia danych roznicowych (gorny sasiad): 3.332448268480497
+Srednia dlugosc slowa kodowego: 17.1105597643
+Entropia danych roznicowych (lewy sasiad): 3.641634548065101
+Srednia dlugosc slowa kodowego: 17.3744402357
+Entropia danych roznicowych (mediana): 3.6960611972001423
+Srednia dlugosc slowa kodowego: 17.1854924242
+Processing: cat.png
+cat.png
+Entropia danych wejsciowych: 7.937150243747203
+Srednia dlugosc slowa kodowego: 7.95968946924
+Entropia danych roznicowych (gorny sasiad): 5.533426355033699
+Srednia dlugosc slowa kodowego: 16.2703677924
+Entropia danych roznicowych (lewy sasiad): 5.819171665751681
+Srednia dlugosc slowa kodowego: 17.9543781496
+Entropia danych roznicowych (mediana): 5.8078549296875845
+Srednia dlugosc slowa kodowego: 16.2393768967
+Processing: boat.png
+boat.png
+Entropia danych wejsciowych: 7.191370218069238
+Srednia dlugosc slowa kodowego: 7.21868133545
+Entropia danych roznicowych (gorny sasiad): 5.592742549911449
+Srednia dlugosc slowa kodowego: 13.9946708679
+Entropia danych roznicowych (lewy sasiad): 5.298981161247723
+Srednia dlugosc slowa kodowego: 17.243598938
+Entropia danych roznicowych (mediana): 5.568667409237259
+Srednia dlugosc slowa kodowego: 13.3668556213

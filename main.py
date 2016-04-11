@@ -10,6 +10,7 @@ import ImageGenerator
 import PredictiveCodec
 
 path = "data/"
+output = "histograms/"
 
 def entropy(data):
     # Wyliczenie entropii. Przyjmuje tablice.
@@ -33,7 +34,7 @@ def read_images():
     names = []
     for filename in os.listdir(path):
         img = Image.open(path + filename)
-        print(filename + ": " + img.mode, img.size)
+        #print(filename + ": " + img.mode, img.size)
         imgs.append(img);
         names.append(filename)
     return (imgs,names)
@@ -57,7 +58,9 @@ def histogram(data,names,idx):
     plt.subplot(1, 3, 3)
     plt.title('Mediana')
     plt.hist(data[3], bins = 20, color='green')
-    plt.show()
+    #plt.show()
+    plt.savefig(output + names[idx])
+    plt.close()
 
 
 def information(data,names,idx):
@@ -84,11 +87,12 @@ def main():
     imgs, names = read_images()
 
     # ktory obrazek chcemy wczytac
-    idx = 0
-    data = get_data(imgs,idx)
-
-    histogram(data,names,idx)
-    information(data,names,idx)
+    #idx = 0
+    for idx in range(0,len(imgs)):
+        print("Processing: " + names[idx] )
+        data = get_data(imgs,idx)
+        histogram(data,names,idx)
+        information(data,names,idx)
 
     '''
     # Ksiazka przelaskowskiego (str. 81) entropia = 2.176
