@@ -9,6 +9,8 @@ import HuffmanCodec.HuffmanCoder as Coder
 import ImageGenerator
 import PredictiveCodec
 
+np.set_printoptions(threshold=np.nan)
+
 path = "data/"
 output = "histograms/"
 
@@ -21,6 +23,7 @@ def entropy(data):
 def word_length(data,code):
     # Srednia dlugosc slowa kodowego.
     codes = code.code_book;
+    codes = collections.OrderedDict(sorted(codes.items()))
     freq_data = collections.Counter(data)
     freq_data = collections.OrderedDict(sorted(freq_data.items()))
     # tablica prawdopobienstw jest dzieki temu posortowana
@@ -98,6 +101,12 @@ def main():
         histogram(data,names,idx)
         information(data,names,idx)
 
+
+    ''''
+    data = (PredictiveCodec.encode_predictive(imgs[idx],1))
+    code = Coder.encode(data)
+    print("Dlugosc slowa Pred: " + str(word_length(data,code)))
+    '''
 
     '''
     # Ksiazka przelaskowskiego (str. 81) entropia = 2.176

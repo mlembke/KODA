@@ -4,7 +4,6 @@ import itertools
 
 from PIL import Image
 
-
 def mid(a, b, c):
     if a < b:
         if b < c:
