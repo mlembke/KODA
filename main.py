@@ -49,13 +49,16 @@ def get_data(images,idx):
 
 def histogram(data,names,idx):
     plt.suptitle('Histogramy danych roznicowych dla ' + names[idx])
-    plt.subplot(1, 3, 1)
+    plt.subplot(1, 4, 1)
+    plt.title('Oryginal')
+    plt.hist(data[0], bins = 20, color='grey')
+    plt.subplot(1, 4, 2)
     plt.title('Lewy sasiad')
     plt.hist(data[1], bins = 20, color='blue')
-    plt.subplot(1, 3, 2)
+    plt.subplot(1, 4, 3)
     plt.title('Gorny sasiad')
     plt.hist(data[2], bins = 20, color='red')
-    plt.subplot(1, 3, 3)
+    plt.subplot(1, 4, 4)
     plt.title('Mediana')
     plt.hist(data[3], bins = 20, color='green')
     #plt.show()
@@ -71,20 +74,21 @@ def information(data,names,idx):
     print("Srednia dlugosc slowa kodowego: " + str(word_length(data[0],code)))
 
     print("Entropia danych roznicowych (gorny sasiad): " + str(entropy(data[1])))
-    code = Coder.encode(data[1])
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[1],code)))
+    code1 = Coder.encode(data[1])
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[1],code1)))
 
     print("Entropia danych roznicowych (lewy sasiad): " + str(entropy(data[2])))
-    code = Coder.encode(data[2])
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[2],code)))
+    code2 = Coder.encode(data[2])
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[2],code2)))
 
     print("Entropia danych roznicowych (mediana): " + str(entropy(data[3])))
-    code = Coder.encode(data[3])
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[3],code)))
+    code3 = Coder.encode(data[3])
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[3],code3)))
 
 def main():
 
     imgs, names = read_images()
+
 
     # ktory obrazek chcemy wczytac
     #idx = 0
@@ -94,6 +98,7 @@ def main():
         histogram(data,names,idx)
         information(data,names,idx)
 
+
     '''
     # Ksiazka przelaskowskiego (str. 81) entropia = 2.176
     test = np.array([1,1,1,1,1,1,
@@ -102,9 +107,19 @@ def main():
         3,3,3,3,
         4,4,4,4,4,
         5,5,5,5])
-    print("Test: " + str(entropy(test))) # = 2.1755200043411453
+    test_pred = ([1,0,0,0,0,0,
+        1,0,0,0,0,0,
+        0,0,0,0,0,0,
+        1,0,0,0,
+        1,0,0,0,0,
+        1,0,0,0])
+    print("Entropia: " + str(entropy(test))) # = 2.1755200043411453
     tcode = Coder.encode(test)
-    print("Test2: " + str(word_length(test,tcode))) # = 2.22580645161
+    print("Dlugosc slowa " + str(word_length(test,tcode))) # = 2.22580645161
+
+    print("Entropia Pred: " + str(entropy(test_pred))) # = 0.6373874992221911
+    tcodet = Coder.encode(test_pred)
+    print("Dlugosc slowa Pred: " + str(word_length(test_pred,tcodet))) # = 1.0
     '''
 
     '''
