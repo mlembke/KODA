@@ -20,20 +20,19 @@ Projekt napisany zostanie w~języku Python, z~użyciem potrzebnych bibliotek (np
 \section{Metody kodowania}
 \label{sec:metody}
 
-\subsection{Kodowanie różnicowe}
+\subsection{Kodowanie predykcyjne}
 \label{subsec:kodowanie_roznicowe}
 
-% krótki opis metody
-\begin{enumerate} \itemsep1pt
-	{\color{red} \item UZUPEŁNIĆ}
-\end{enumerate}
+Kodowanie predykcyjne pozwala zredukować rozmiar danych dzięki wykorzystaniu wiedzy o~już przetworzonej części informacji. 
 
-\subsection{Kod Huffmana}
+\subsection{Kodowanie  Huffmana}
 \label{subsec:kod_huffamana}
 
-% krótki opis metody
+Kodowanie Huffmana jest bezstratną metodą, pozwalającą otrzymać efektywny kod symboli. Uzyskany kod jest optymalnym kodem prefiksowym, tj. nie istnieje żaden inny kod w~tej kategorii, który zapewniałby mniejszą średnią długość słowa kodowego. Idea tej metody opiera się na dwóch założeniach:
+
 \begin{enumerate} \itemsep1pt
-	{\color{red} \item UZUPEŁNIĆ}
+	\item Długość słowa kodowego dla danego symbolu jest tym mniejsza, im częściej występuje on w~alfabecie;
+	\item Dwa symbole o~najmniejszej częstości występowania w~alfabecie mają słowa kodowe o~równej długości.
 \end{enumerate}
 
 \section{Testowanie}
@@ -41,19 +40,23 @@ Projekt napisany zostanie w~języku Python, z~użyciem potrzebnych bibliotek (np
 
 \subsection{Metody oceny efektywności kompresji danych}
 \label{subsec:metody_oceny_efektywnosci_kompresji_danych}
-
-% dwa słowa na temat porównań średnia/średnia, średnia/mediana oraz o wsp. kompresji
-\begin{enumerate} \itemsep1pt
-	{\color{red} \item UZUPEŁNIĆ}
-\end{enumerate}
+Ocena efektywności zaimplementowanych metod kodowania polegać będzie na porównaniu:
+\begin{itemize} \itemsep1pt
+	\item entropii
+	\item średniej długości słowa kodowego
+\end{itemize}
+danych wejściowych i~wyjściowych dla różnych obrazów testowych. Zaprezentowane zostaną również histogramy ich oraz danych różnicowych dla każdej metody kodowania.
 
 \subsection{Dane testowe}
 \label{subsec:dane_testowe}
 
-% dwa słowa o obrazkach
-\begin{enumerate} \itemsep1pt
-	{\color{red} \item UZUPEŁNIĆ}
-\end{enumerate}
+Zbiór danych testowych będzie składał się z~kilku obrazów naturalnych, a~także wygenerowanych przez program trzech losowych obrazów, których wartości natężeń pikseli reprezentować będą:
+
+\begin{itemize} \itemsep1pt
+	\item rozkład równomierny (równoważny szumowi białemu)
+	\item rozkład normalny (Gaussa)
+	\item rozkład Laplace'a
+\end{itemize}
 
 \input{bibl.tex}
 \end{document}
