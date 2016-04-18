@@ -20,15 +20,20 @@ Projekt napisany zostanie w~języku Python, z~użyciem potrzebnych bibliotek (np
 \section{Metody kodowania}
 \label{sec:metody}
 
-\subsection{Kodowanie predykcyjne}
+% \subsection{Kodowanie predykcyjne}
+% \label{subsec:kodowanie_predykcyjne}
+
+% Kodowanie predykcyjne pozwala zredukować rozmiar danych dzięki wykorzystaniu wiedzy o~już przetworzonej części informacji. Dzięki temu możliwe jest użycie wielu rozkładów prawdopodobieństwa/przekształceń w taki sposób, by kodowany aktualnie symbol miał wysokie prawdopodobieństwo wystąpienia w~aktualnie używanym rozkładzie, a~co za tym idzie~---~możliwie niewielką długość słowa kodowego. By zakodowane dane były użyteczne, informacja o~używanych rozkładach musi być znana zarówno koderowi, jak i~dekoderowi. 
+
+\subsection{Kodowanie różnicowe}
 \label{subsec:kodowanie_roznicowe}
 
-Kodowanie predykcyjne pozwala zredukować rozmiar danych dzięki wykorzystaniu wiedzy o~już przetworzonej części informacji. 
+Na wstępnym etapie kompresji obrazów uzasadnione jest podejście różnicowe, polegające na kodowaniu różnic między symbolem aktualnym a~poprzednim (zamiast kodowania wartości pikseli bezpośrednio), ponieważ niejednokrotnie występują zgromadzenia pikseli o~podobnych wartościach. Co za tym idzie~---~wielokrotnie pojawiają się podobne wartości różnic między nimi. Dane do ostatecznego przetworzenia złożone będą z~wielu podobnych symboli, więc ich słowa kodowe będą stosunkowo krótkie.
 
 \subsection{Kodowanie  Huffmana}
 \label{subsec:kod_huffamana}
 
-Kodowanie Huffmana jest bezstratną metodą, pozwalającą otrzymać efektywny kod symboli. Uzyskany kod jest optymalnym kodem prefiksowym, tj. nie istnieje żaden inny kod w~tej kategorii, który zapewniałby mniejszą średnią długość słowa kodowego. Idea tej metody opiera się na dwóch założeniach:
+Wykorzystane w drugim etapie przetwarzania kodowanie Huffmana jest bezstratną metodą, pozwalającą otrzymać efektywny kod symboli. Uzyskany kod jest optymalnym kodem prefiksowym, tj. nie istnieje żaden inny kod w~tej kategorii, który zapewniałby mniejszą średnią długość słowa kodowego. Idea tej metody opiera się na dwóch założeniach:
 
 \begin{enumerate} \itemsep1pt
 	\item Długość słowa kodowego dla danego symbolu jest tym mniejsza, im częściej występuje on w~alfabecie;
