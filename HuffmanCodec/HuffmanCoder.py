@@ -39,7 +39,9 @@ def encode(data):
                 length = 0
     if length != 0:
         encoded_data.extend([buffer << (__BYTE - length)])
-    return HuffmanCode(encoded_data, code_book)
+        # [0] - encoded_data
+        # [1] - code_book
+    return encoded_data, code_book # zwracane jako tuple, poniewaz python narzeka na obiekt
 
 
 def encode_alt(data):

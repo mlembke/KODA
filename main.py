@@ -23,7 +23,7 @@ def entropy(data):
 
 def word_length(data,code):
     # Srednia dlugosc slowa kodowego.
-    codes = code.code_book;
+    codes = code
     codes = collections.OrderedDict(sorted(codes.items()))
     freq_data = collections.Counter(data)
     freq_data = collections.OrderedDict(sorted(freq_data.items()))
@@ -43,13 +43,12 @@ def read_images():
         names.append(filename)
     return (imgs,names)
 
-def get_data(images,idx):
+def encode_predictive_data(images,idx):
     pix = []
     pix.append(np.array(images[idx], dtype='int64').flatten())
     for i in range(1,4):
         pix.append(PredictiveCodec.encode_predictive(images[idx],i))
     return pix  # Tablica: 0 - dane wejsciowe, 1 - lewy sasiad, 2 - gorny sasiad, 3 - mediana)
-
 
 def histogram(data,names,idx):
     plt.suptitle('Histogramy danych roznicowych dla ' + names[idx])
@@ -70,54 +69,63 @@ def histogram(data,names,idx):
     plt.close()
 
 
-def information(data,names,idx):
+def encode_huffman_data(data,names,idx):
     print(names[idx])
+    code = []
 
     print("Entropia danych wejsciowych: " + str(entropy(data[0])))
-    code = Coder.encode(data[0])
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[0],code)))
+    code.append(Coder.encode(data[0]))
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[0],code[0][1])))
 
     print("Entropia danych roznicowych (gorny sasiad): " + str(entropy(data[1])))
-    code1 = Coder.encode(data[1])
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[1],code1)))
+    code.append(Coder.encode(data[1]))
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[1],code[1][1])))
 
     print("Entropia danych roznicowych (lewy sasiad): " + str(entropy(data[2])))
-    code2 = Coder.encode(data[2])
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[2],code2)))
+    code.append(Coder.encode(data[2]))
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[2],code[2][1])))
 
     print("Entropia danych roznicowych (mediana): " + str(entropy(data[3])))
-    code3 = Coder.encode(data[3])
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[3],code3)))
+    code.append(Coder.encode(data[3]))
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[3],code[3][1])))
 
-'''
-# MJK: Problem z rozmiarem plikow. Moze ktos ma lepszy pomysl, jak to zapisac - do dekodowania warto jakies dane jednak miec ;)
-def save_code(data,names,idx):
-    file_code = open(output_encode+names[idx]+"_upper_code.txt", "w")
-    file_code.write(data[1])
-    file_code.close()
+    return code
 
-    file_code = open(output_encode+names[idx]+"_left_code.txt", "w")
-    file_code.write(data[2])
-    file_code.close()
 
-    file_code = open(output_encode+names[idx]+"_median_code.txt", "w")
-    file_code.write(data[3])
-    file_code.close()
-'''
+# MJK: Problem z rozmiarem plikow. Moze ktos ma lepszy pomysl, jak to zapisac
+#- do dekodowania warto jakies dane jednak miec ;)
+def save_code(codes,names,idx):
+
+    with open(output_encode+names[idx]+"_normal_code.txt", 'wb') as f:
+        f.write(codes[0][0])
+        f.close()
+
+    with open(output_encode+names[idx]+"_upper_code.txt", 'wb') as f:
+        f.write(codes[1][0])
+        f.close()
+
+    with open(output_encode+names[idx]+"_left_code.txt", 'wb') as f:
+        f.write(codes[2][0])
+        f.close()
+
+    with open(output_encode+names[idx]+"_median_code.txt", 'wb') as f:
+        f.write(codes[3][0])
+        f.close()
+
 def main():
 
     imgs, names = read_images()
 
 
     # ktory obrazek chcemy wczytac
-    # idx = 0
-    for idx in range(0,len(imgs)):
-        print("Processing: " + names[idx])
-        data = get_data(imgs,idx)
-        histogram(data,names,idx)
-        information(data,names,idx)
-        # print("Saving: " + names[idx])
-        # save_code(data,names,idx)
+    idx = 0
+    #for idx in range(0,len(imgs)):
+    print("Processing: " + names[idx])
+    data = encode_predictive_data(imgs,idx)
+    #histogram(data,names,idx)
+    codes = encode_huffman_data(data,names,idx)
+    print("Saving: " + names[idx])
+    save_code(codes,names,idx)
 
     ''''
     data = (PredictiveCodec.encode_predictive(imgs[idx],1))
