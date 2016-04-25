@@ -6,13 +6,14 @@ import collections
 from PIL import Image
 
 import HuffmanCodec.HuffmanCoder as Coder
-import ImageGenerator
+# import ImageGenerator
 import PredictiveCodec
 
 np.set_printoptions(threshold=np.nan)
 
 path = "data/"
 output = "histograms/"
+output_encode = "encoded/"
 
 def entropy(data):
     # Wyliczenie entropii. Przyjmuje tablice.
@@ -88,19 +89,35 @@ def information(data,names,idx):
     code3 = Coder.encode(data[3])
     print("Srednia dlugosc slowa kodowego: " + str(word_length(data[3],code3)))
 
+'''
+# MJK: Problem z rozmiarem plikow. Moze ktos ma lepszy pomysl, jak to zapisac - do dekodowania warto jakies dane jednak miec ;)
+def save_code(data,names,idx):
+    file_code = open(output_encode+names[idx]+"_upper_code.txt", "w")
+    file_code.write(data[1])
+    file_code.close()
+
+    file_code = open(output_encode+names[idx]+"_left_code.txt", "w")
+    file_code.write(data[2])
+    file_code.close()
+
+    file_code = open(output_encode+names[idx]+"_median_code.txt", "w")
+    file_code.write(data[3])
+    file_code.close()
+'''
 def main():
 
     imgs, names = read_images()
 
 
     # ktory obrazek chcemy wczytac
-    #idx = 0
+    # idx = 0
     for idx in range(0,len(imgs)):
-        print("Processing: " + names[idx] )
+        print("Processing: " + names[idx])
         data = get_data(imgs,idx)
         histogram(data,names,idx)
         information(data,names,idx)
-
+        # print("Saving: " + names[idx])
+        # save_code(data,names,idx)
 
     ''''
     data = (PredictiveCodec.encode_predictive(imgs[idx],1))
