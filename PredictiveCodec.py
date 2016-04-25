@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-import itertools
+# import itertools
 
-from PIL import Image
+# from PIL import Image
+
 
 def mid(a, b, c):
     if a < b:
@@ -32,16 +33,25 @@ def encode_predictive(image, opt):
     for j in range(0, width):
         for i in range(0, height):
             # lewy sasiad
-            if (opt == 1) and (j > 0):
-                pix_diff[i, j] = pix[i, j] - pix[i, j - 1]
+            # if (opt == 1) and (j > 0):
+            if opt == 1:
+                if j > 0:
+                    pix_diff[i, j] = pix[i, j] - pix[i, j - 1]
+                else:
+                    pix_diff[i, j] = pix[i, j] - 128
             # gorny sasiad
-            if (opt == 2) and (i > 0):
-                pix_diff[i, j] = pix[i, j] - pix[i - 1, j]
+            if opt == 2:
+                if i > 0:
+                    pix_diff[i, j] = pix[i, j] - pix[i - 1, j]
+                else:
+                    pix_diff[i, j] = pix[i, j] - 128
             # medianowe
             # michał: ta operacja (np.median) jest bardzo kosztowna obliczeniowo
             # MJK: mowisz-masz :p
-            if (opt == 3) and (i > 0) and (j > 0):
-                pix_diff[i, j] = mid((pix[i, j] - pix[i - 1, j]), (pix[i, j] - pix[i, j - 1]), (pix[i, j] - pix[i - 1, j - 1]))
-                # pix_diff[i, j] = np.median([(pix[i, j] - pix[i - 1, j]), (pix[i, j] - pix[i, j - 1]),
-                #                             (pix[i, j] - pix[i - 1, j - 1])])
+            if (opt == 3):
+                if (i > 0) and (j > 0):
+                    pix_diff[i, j] = pix[i, j] - mid(pix[i - 1, j], pix[i, j - 1], pix[i - 1, j - 1])
+                else:
+                    pix_diff[i, j] = pix[i, j] - 128 # mediana z 128, 128, x to zawsze 128.
+
     return pix_diff.flatten()

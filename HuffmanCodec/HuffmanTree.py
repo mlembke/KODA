@@ -34,7 +34,7 @@ class HuffmanNode(object):
 
     def __lt__(self, other):
         if isinstance(other, HuffmanNode):
-            return self.frequency <= other.frequency
+            return self.frequency < other.frequency
         return NotImplemented
 
     def __ne__(self, other):
