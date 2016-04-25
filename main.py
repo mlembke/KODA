@@ -5,7 +5,8 @@ import math
 import collections
 from PIL import Image
 
-import HuffmanCodec.HuffmanCoder as Coder
+import HuffmanCodec.HuffmanCoder as coder
+import HuffmanCodec.HuffmanDecoder as decoder
 # import ImageGenerator
 import PredictiveCodec
 
@@ -50,6 +51,15 @@ def encode_predictive_data(images,idx):
         pix.append(PredictiveCodec.encode_predictive(images[idx],i))
     return pix  # Tablica: 0 - dane wejsciowe, 1 - lewy sasiad, 2 - gorny sasiad, 3 - mediana)
 
+# TODO
+# Input: zdekodowane dane algorytmem kompresji Hufmana
+# [0] - normal
+# [1] - left diff
+# [2] - upper diff
+# [3] - median
+def decode_predictive_data(decoded_huf_data):
+    return 0
+
 def histogram(data,names,idx):
     plt.suptitle('Histogramy danych roznicowych dla ' + names[idx])
     plt.subplot(1, 4, 1)
@@ -74,22 +84,41 @@ def encode_huffman_data(data,names,idx):
     code = []
 
     print("Entropia danych wejsciowych: " + str(entropy(data[0])))
-    code.append(Coder.encode(data[0]))
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[0],code[0][1])))
+    code.append(coder.encode(data[0]))
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[0],code[0].code_book)))
 
     print("Entropia danych roznicowych (gorny sasiad): " + str(entropy(data[1])))
-    code.append(Coder.encode(data[1]))
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[1],code[1][1])))
+    code.append(coder.encode(data[1]))
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[1],code[1].code_book)))
 
     print("Entropia danych roznicowych (lewy sasiad): " + str(entropy(data[2])))
-    code.append(Coder.encode(data[2]))
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[2],code[2][1])))
+    code.append(coder.encode(data[2]))
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[2],code[2].code_book)))
 
     print("Entropia danych roznicowych (mediana): " + str(entropy(data[3])))
-    code.append(Coder.encode(data[3]))
-    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[3],code[3][1])))
+    code.append(coder.encode(data[3]))
+    print("Srednia dlugosc slowa kodowego: " + str(word_length(data[3],code[3].code_book)))
 
+    # zwraca obiekt typu HuffmanCode
     return code
+
+def decode_huffman_data(codes):
+    decoded_huf_data = []
+
+    # Normal:
+    decoded_huf_data.append(decoder.decode(codes[0]))
+
+    # Left diff:
+    decoded_huf_data.append(decoder.decode(codes[1]))
+
+    # Upper diff:
+    decoded_huf_data.append(decoder.decode(codes[2]))
+
+    # Median:
+    decoded_huf_data.append(decoder.decode(codes[3]))
+
+    # zwraca tablice zdekodowanych wartosci
+    return decoded_huf_data
 
 
 # MJK: Problem z rozmiarem plikow. Moze ktos ma lepszy pomysl, jak to zapisac
@@ -97,19 +126,19 @@ def encode_huffman_data(data,names,idx):
 def save_code(codes,names,idx):
 
     with open(output_encode+names[idx]+"_normal_code.txt", 'wb') as f:
-        f.write(codes[0][0])
-        f.close()
-
-    with open(output_encode+names[idx]+"_upper_code.txt", 'wb') as f:
-        f.write(codes[1][0])
+        f.write(codes[0].encoded_data)
         f.close()
 
     with open(output_encode+names[idx]+"_left_code.txt", 'wb') as f:
-        f.write(codes[2][0])
+        f.write(codes[1].encoded_data)
+        f.close()
+
+    with open(output_encode+names[idx]+"_upper_code.txt", 'wb') as f:
+        f.write(codes[2].encoded_data)
         f.close()
 
     with open(output_encode+names[idx]+"_median_code.txt", 'wb') as f:
-        f.write(codes[3][0])
+        f.write(codes[3].encoded_data)
         f.close()
 
 def main():
@@ -120,12 +149,36 @@ def main():
     # ktory obrazek chcemy wczytac
     idx = 0
     #for idx in range(0,len(imgs)):
-    print("Processing: " + names[idx])
-    data = encode_predictive_data(imgs,idx)
+
+    print("Predictive encoding: " + names[idx])
+    pred_data = encode_predictive_data(imgs,idx)
+
     #histogram(data,names,idx)
-    codes = encode_huffman_data(data,names,idx)
+
+    print("Huffmann encoding: " + names[idx])
+    huff_data = encode_huffman_data(pred_data,names,idx)
+
     print("Saving: " + names[idx])
-    save_code(codes,names,idx)
+    save_code(huff_data,names,idx)
+
+    print("Huffmann decoding: " + names[idx])
+    decoded_huf_data = decode_huffman_data(huff_data)
+
+    print("Predictive decoding: " + names[idx])
+    decoded_pred_data = decode_predictive_data(decoded_huf_data);
+
+    # test:
+    print("Normal data to be compressed: "  + names[idx])
+    for i in range(0,10):
+        print(int(pred_data[0][i]),  ", ")
+
+    print("\n")
+    print("Normal data uncompressed: "  + names[idx])
+    for i in range(0,10):
+        print(int(decoded_huf_data[0][i]), ", ")
+    print("\n")
+
+
 
     ''''
     data = (PredictiveCodec.encode_predictive(imgs[idx],1))

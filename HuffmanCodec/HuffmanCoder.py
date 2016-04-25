@@ -8,9 +8,11 @@ __BYTE = 8
 
 
 class HuffmanCode(object):
-    def __init__(self, encoded_data, code_book):
+    def __init__(self, encoded_data, code_book, huffman_tree, code_length):
         self.encoded_data = encoded_data
         self.code_book = code_book
+        self.huffman_tree = huffman_tree
+        self.code_length = code_length
 
     def write_to_file(self, file_name):
         pass
@@ -25,6 +27,7 @@ def encode(data):
     encoded_data = array.array('B')
     buffer = 0
     length = 0
+    code_length = 0;
     for symbol in data:
         code_word = code_book[symbol]
         for bit in code_word:
@@ -33,15 +36,14 @@ def encode(data):
             else:
                 buffer = (buffer << 1)
             length += 1
+            code_length += 1
             if length == __BYTE:
                 encoded_data.extend([buffer])
                 buffer = 0
                 length = 0
     if length != 0:
         encoded_data.extend([buffer << (__BYTE - length)])
-        # [0] - encoded_data
-        # [1] - code_book
-    return encoded_data, code_book # zwracane jako tuple, poniewaz python narzeka na obiekt
+    return HuffmanCode(encoded_data, code_book, huffman_tree, code_length)
 
 
 def encode_alt(data):
