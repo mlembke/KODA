@@ -7,8 +7,7 @@ from PIL import Image
 
 import HuffmanCodec.HuffmanCoder as coder
 import HuffmanCodec.HuffmanDecoder as decoder
-# import ImageGenerator
-import PredictiveCodec
+import PredictiveCodec as pcodec
 
 np.set_printoptions(threshold=np.nan)
 
@@ -44,12 +43,6 @@ def read_images():
         names.append(filename)
     return (imgs,names)
 
-def encode_predictive_data(images,idx):
-    pix = []
-    pix.append(np.array(images[idx], dtype='int64').flatten())
-    for i in range(1,4):
-        pix.append(PredictiveCodec.encode_predictive(images[idx],i))
-    return pix  # Tablica: 0 - dane wejsciowe, 1 - lewy sasiad, 2 - gorny sasiad, 3 - mediana)
 
 # TODO
 # Input: zdekodowane dane algorytmem kompresji Hufmana
@@ -57,7 +50,11 @@ def encode_predictive_data(images,idx):
 # [1] - left diff
 # [2] - upper diff
 # [3] - median
-def decode_predictive_data(decoded_huf_data):
+# Zwraca obrazy.
+def decode_predictive_data(data):
+    imgs = []
+    for i in range(0,4):
+        imgs.append(PredictiveCodec.decode_predictive(data[i],i))
     return 0
 
 def histogram(data,names,idx):
@@ -80,7 +77,6 @@ def histogram(data,names,idx):
 
 
 def encode_huffman_data(data,names,idx):
-    print(names[idx])
     code = []
 
     print("Entropia danych wejsciowych: " + str(entropy(data[0])))
@@ -150,13 +146,15 @@ def main():
     idx = 0
     #for idx in range(0,len(imgs)):
 
+    pred_codec = pcodec.PredictiveCodec(names[idx],imgs[idx])
+
     print("Predictive encoding: " + names[idx])
-    pred_data = encode_predictive_data(imgs,idx)
+    pred_codec.encode_predictive()
 
     #histogram(data,names,idx)
 
     print("Huffmann encoding: " + names[idx])
-    huff_data = encode_huffman_data(pred_data,names,idx)
+    huff_data = encode_huffman_data(pred_codec.encoded_data,names,idx)
 
     print("Saving: " + names[idx])
     save_code(huff_data,names,idx)
@@ -165,19 +163,15 @@ def main():
     decoded_huf_data = decode_huffman_data(huff_data)
 
     print("Predictive decoding: " + names[idx])
-    decoded_pred_data = decode_predictive_data(decoded_huf_data);
+    pred_codec.decode_predictive(decoded_huf_data)
 
-    # test:
-    print("Normal data to be compressed: "  + names[idx])
-    for i in range(0,10):
-        print(int(pred_data[0][i]),  ", ")
+    pred_codec.save_decoded()
 
-    print("\n")
-    print("Normal data uncompressed: "  + names[idx])
-    for i in range(0,10):
-        print(int(decoded_huf_data[0][i]), ", ")
-    print("\n")
-
+    # # test:
+    # for opt in range(0,3):
+    #     for i in range(0,10):
+    #         print(int(pred_codec.decoded_data[opt][i]), end=", ")
+    #     print("\n")
 
 
     ''''
