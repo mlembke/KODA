@@ -71,7 +71,7 @@ class PredictiveCodec(object):
 
     # input: 4-elementowa tablica 1D wejsciowa
     def decode_predictive(self,data):
-        for opt in range(0,3):
+        for opt in range(0, 4):
             if opt == 0:
                 self.decoded_data.append(data[0])
                 continue
@@ -88,12 +88,17 @@ class PredictiveCodec(object):
                         pred_data[i] = data[opt][i] + pred_data[i - self.width]
                     else:
                         pred_data[i] = data[opt][i] + 128
-
+                if opt == 3:
+                    if ((i + self.width) % self.width > 0) and (i > self.width - 1):
+                        pred_data[i] = data[opt][i] + mid(pred_data[i - 1], pred_data[i - self.width],
+                                                          pred_data[i - self.width - 1])
+                    else:
+                        pred_data[i] = data[opt][i] + 128
             self.decoded_data.append(pred_data)
 
     def save_decoded(self):
         imgs = []
-        for opt in range(0,3):
+        for opt in range(0,4):
             im = Image.new("L", (self.width, self.height))
             im.putdata(self.decoded_data[opt])
             im.convert("RGB")

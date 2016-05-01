@@ -39,7 +39,7 @@ def read_images():
     for filename in os.listdir(path):
         img = Image.open(path + filename)
         #print(filename + ": " + img.mode, img.size)
-        imgs.append(img);
+        imgs.append(img)
         names.append(filename)
     return (imgs,names)
 
@@ -54,7 +54,7 @@ def read_images():
 def decode_predictive_data(data):
     imgs = []
     for i in range(0,4):
-        imgs.append(PredictiveCodec.decode_predictive(data[i],i))
+        imgs.append(pcodec.PredictiveCodec.decode_predictive(data[i],i))
     return 0
 
 def histogram(data,names,idx):
@@ -144,28 +144,28 @@ def main():
 
     # ktory obrazek chcemy wczytac
     idx = 0
-    #for idx in range(0,len(imgs)):
+    for idx in range(0,len(imgs)):
 
-    pred_codec = pcodec.PredictiveCodec(names[idx],imgs[idx])
+        pred_codec = pcodec.PredictiveCodec(names[idx],imgs[idx])
 
-    print("Predictive encoding: " + names[idx])
-    pred_codec.encode_predictive()
+        print("Predictive encoding: " + names[idx])
+        pred_codec.encode_predictive()
 
-    #histogram(data,names,idx)
+        #histogram(data,names,idx)
 
-    print("Huffmann encoding: " + names[idx])
-    huff_data = encode_huffman_data(pred_codec.encoded_data,names,idx)
+        print("Huffmann encoding: " + names[idx])
+        huff_data = encode_huffman_data(pred_codec.encoded_data,names,idx)
 
-    print("Saving: " + names[idx])
-    save_code(huff_data,names,idx)
+        print("Saving: " + names[idx])
+        save_code(huff_data,names,idx)
 
-    print("Huffmann decoding: " + names[idx])
-    decoded_huf_data = decode_huffman_data(huff_data)
+        print("Huffmann decoding: " + names[idx])
+        decoded_huf_data = decode_huffman_data(huff_data)
 
-    print("Predictive decoding: " + names[idx])
-    pred_codec.decode_predictive(decoded_huf_data)
+        print("Predictive decoding: " + names[idx])
+        pred_codec.decode_predictive(decoded_huf_data)
 
-    pred_codec.save_decoded()
+        pred_codec.save_decoded()
 
     # # test:
     # for opt in range(0,3):
